@@ -1,0 +1,49 @@
+.weather__card {
+    width: 293px;
+    height: 392px;
+    border-radius: 20px;
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.place__text {
+    font-weight: 500;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 15px 0 15px;
+}
+
+.time {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 25px 0 11px 0;
+}
+
+.forecast__btns {
+    display: flex;
+    justify-content: center;
+    gap: 21px;
+    padding-bottom: 21px;
+}
+
+.forecast__btns button {
+    font-size: 9px;
+    font-weight: 500;
+    border-radius: 5px;
+    background: #FFB36C;
+    display: flex;
+    width: 96px;
+    height: 23px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.forecast__btns button:hover {
+
+    background: #FFB48C;
+    cursor: pointer;
+}
