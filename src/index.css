@@ -26,6 +26,7 @@ h6,
 p {
 
   margin: 0;
+  font-weight: 500;
 
 }
 
@@ -52,4 +53,8 @@ ul {
 
   list-style: none;
 
+}
+
+button:hover {
+  cursor: pointer;
 }

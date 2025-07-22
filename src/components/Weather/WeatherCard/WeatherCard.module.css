@@ -26,7 +26,7 @@
     display: flex;
     justify-content: center;
     gap: 21px;
-    padding-bottom: 21px;
+    margin-bottom: 12px;
 }
 
 .forecast__btns button {
@@ -45,5 +45,88 @@
 .forecast__btns button:hover {
 
     background: #FFB48C;
-    cursor: pointer;
+}
+
+.date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.date p {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.date span {
+    width: 1px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 1px;
+}
+
+.temperature__icon__div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperature__icon {
+    width: 83px;
+    height: 83px;
+    margin-bottom: 25px;
+    display: flex;
+}
+
+.temperature {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 44px;
+}
+
+.weather__btns {
+    display: flex;
+}
+
+.weather__btns svg {
+    width: 24px;
+    height: 24px;
+}
+.refresh {
+    margin: 0 14px 0 32px;
+}
+
+.heart {
+    margin-right: 32px;
+    color: red;
+}
+
+.bin {
+    margin-left: 27px;
+}
+
+.weather__btns button {
+    font-size: 9px;
+    border-radius: 5px;
+    background: #FFB36C;
+    display: flex;
+    width: 84px;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.weather__btns button:hover {
+    background: #FFB48C;
 }
