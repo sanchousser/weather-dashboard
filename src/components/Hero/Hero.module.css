@@ -1,0 +1,10 @@
+.hero__section {
+  height: 345px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)),
+    url(../../imgs/hero.jpg);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
