@@ -4,9 +4,11 @@ import Hero from './Hero/Hero';
 
 export const App = () => {
   return (
-    <Container>
-      <Header />
-      <Hero />
-    </Container>
+    <>
+      <Container>
+        <Header />
+        <Hero />
+      </Container>
+    </>
   );
 };
