@@ -52,6 +52,7 @@
 }
 
 .header__item {
+  font-family: 'Montserrat Alternates';
   font-size: 10px;
   font-weight: 500;
   transition: color 400ms ease-in-out;
@@ -81,6 +82,7 @@
 
 .signUp__btn {
   @media screen and (min-width: 768px) {
+    font-family: 'Montserrat Alternates';
     font-size: 10px;
     font-weight: 500;
 
@@ -110,6 +112,8 @@
   }
 }
 
+/* menu */
+
 .menu__thumb {
   display: flex;
   align-items: center;
@@ -122,11 +126,50 @@
   }
 }
 
+.menu__container {
+  background-color: #e6e6e6;
+  padding: 30px 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .menu__title {
+  font-family: 'Montserrat Alternates';
   font-size: 10px;
 }
 
 .menu__icon {
   width: 6px;
   height: 6px;
+}
+
+.menu__item {
+  font-family: 'Montserrat Alternates';
+  font-size: 10px;
+  font-weight: 500;
+
+  &:not(:last-child) {
+    margin-bottom: 25px;
+  }
+}
+
+.menu__signUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__signUp__icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.menu__signUp__btn {
+  border-radius: 10px;
+  background: #ffb36c;
+  padding: 8px 16px;
+  border: none;
 }
