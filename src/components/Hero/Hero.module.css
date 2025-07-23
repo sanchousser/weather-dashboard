@@ -184,6 +184,8 @@
   border-bottom: none;
   border-right: none;
 
+  padding: 0 2px;
+
   @media screen and (min-width: 768px) {
     padding: 4.5px;
     border-radius: 0px 10px 10px 0px;
@@ -197,7 +199,8 @@
 
 .hero__icon {
   position: relative;
-  top: 1px;
+  right: 0.5px;
+  bottom: 0.5px;
 
   width: 9px;
   height: 9px;
@@ -206,6 +209,7 @@
     width: 15px;
     height: 15px;
     right: 1px;
+    top: 1px;
   }
 
   @media screen and (min-width: 1200px) {
