@@ -1,0 +1,187 @@
+.weather__card {
+    width: 293px;
+    height: 392px;
+    border-radius: 20px;
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.place__text {
+    font-weight: 500;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 15px 0 15px;
+}
+
+.time {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 25px 0 11px 0;
+}
+
+.forecast__btns {
+    display: flex;
+    justify-content: center;
+    gap: 21px;
+    margin-bottom: 12px;
+}
+
+.forecast__btns button {
+    font-size: 9px;
+    font-weight: 500;
+    border-radius: 5px;
+    background: #FFB36C;
+    display: flex;
+    width: 96px;
+    height: 23px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.forecast__btns button:hover {
+
+    background: #FFB48C;
+}
+
+.date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.date p {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.date span {
+    width: 1px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 1px;
+}
+
+.temperature__icon__div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperature__icon {
+    width: 83px;
+    height: 83px;
+    margin-bottom: 25px;
+    display: flex;
+}
+
+.temperature {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 44px;
+}
+
+.weather__btns {
+    display: flex;
+}
+
+.weather__btns svg {
+    width: 24px;
+    height: 24px;
+}
+
+.refresh {
+    margin: 0 14px 0 32px;
+}
+
+.heart {
+    margin-right: 32px;
+    color: red;
+}
+
+.bin {
+    margin-left: 27px;
+}
+
+.weather__btns button {
+    font-size: 9px;
+    border-radius: 5px;
+    background: #FFB36C;
+    display: flex;
+    width: 84px;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.weather__btns button:hover {
+    background: #FFB48C;
+}
+
+@media screen and (min-width: 768px) {
+    .weather__card {
+        width: 262px;
+        height: 352px;
+    }
+
+    .place__text {
+        margin: 12px 25px 0 25px;
+    }
+
+    .time {
+        margin: 11px 0 11px 0;
+    }
+
+    .temperature__icon {
+        width: 76px;
+        height: 76px;
+    }
+
+    .temperature {
+        margin-bottom: 35px;
+    }
+
+    .weather__btns button {
+        width: 81px;
+        height: 23px;
+    }
+
+    .refresh {
+        margin: 0 14px 0 16px;
+    }
+
+    .bin {
+        margin-left: 30px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .weather__card {
+        width: 320px;
+        height: 430px;
+    }
+
+    .place__text {
+        font-size: 14px;
+        margin: 15px 30px 0 30px;
+
+    }
+
+    .time {
+        font-size: 24px;
+    }
+}

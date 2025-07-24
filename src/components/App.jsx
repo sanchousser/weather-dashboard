@@ -1,3 +1,5 @@
+
+import { WeatherList } from "./Weather/WeatherList/WeatherList";
 import Container from './Container/Container';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -9,7 +11,9 @@ export const App = () => {
       <Container>
         <Header />
         <Hero />
+      <WeatherList />
         <Footer />
+    
       </Container>
     </>
   );
