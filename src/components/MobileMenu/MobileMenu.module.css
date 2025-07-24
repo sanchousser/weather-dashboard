@@ -1,0 +1,59 @@
+.mobileMenu__container {
+  position: absolute;
+  top: 50px;
+  left: -1px;
+  width: 100vw;
+  padding: 30px 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #e6e6e6;
+}
+
+.mobileMenu__btn {
+  background-color: transparent;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+
+  font-family: 'Montserrat Alternates';
+  font-size: 10px;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.menu__item {
+  font-family: 'Montserrat Alternates';
+  font-size: 10px;
+  font-weight: 500;
+
+  &:not(:last-child) {
+    margin-bottom: 25px;
+  }
+}
+
+.menu__signUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__signUp__icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.menu__signUp__btn {
+  border-radius: 10px;
+  background: #ffb36c;
+  padding: 8px 16px;
+  border: none;
+}
