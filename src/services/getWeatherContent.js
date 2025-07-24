@@ -1,5 +1,7 @@
 const BASE_URL = `https://api.openweathermap.org`;
+
 const API_KEY = '40207e285e43c5b8e49ba7f2599cdd4b';
+
 
 export const fetchCoordinates = async city => {
   const response = await fetch(
@@ -8,7 +10,9 @@ export const fetchCoordinates = async city => {
 
   const data = await response.json();
 
+
   if (data.length === 0) throw new Error('Oops! City not found!');
+
   return {
     lat: data[0].lat,
     lon: data[0].lon,
@@ -19,9 +23,13 @@ export const fetchCoordinates = async city => {
 
 export const fetchWeather = async ({ lat, lon }) => {
   const response = await fetch(
+
     `${BASE_URL}/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+
   );
 
   const data = await response.json();
   return data;
+
 };
+
