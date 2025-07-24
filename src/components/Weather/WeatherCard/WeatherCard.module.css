@@ -184,4 +184,9 @@
     .time {
         font-size: 24px;
     }
+
+    .temperature__icon {
+        width: 120px;
+        height: 120px;
+    }
 }

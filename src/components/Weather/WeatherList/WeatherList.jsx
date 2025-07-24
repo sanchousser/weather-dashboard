@@ -1,9 +1,11 @@
 import { WeatherCard } from "components/Weather/WeatherCard/WeatherCard"
 
-export const WeatherList = () => {
+import css from './WeatherList.module.css'
+
+export const WeatherList = ({weatherData, cityInfo}) => {
     return (
-        <ul>
-            <WeatherCard />
+        <ul className={css.weather__list}>
+            < WeatherCard data={weatherData} city={cityInfo} />
         </ul>
     )
 }

@@ -1,0 +1,20 @@
+.weather__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px 0 35px 0;
+}
+
+@media screen and (min-width: 768px) {
+    .weather__list {
+        justify-content: space-around;
+        margin: 50px 0 50px 0;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .weather__list {
+        justify-content: space-around;
+        margin: 65px 0 65px 0;
+    }
+}

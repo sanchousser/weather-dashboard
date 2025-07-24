@@ -36,7 +36,9 @@ export const WeatherCard = ({ data, city }) => {
 
             <div className={css.temperature__icon__div}>
                 {/* <IoSunnySharp className={css.temperature__icon} /> */}
-                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={description} />
+
+                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} className={css.temperature__icon} alt={description} />
+
             </div>
 
             <p className={css.temperature}>{Math.round(data.current.temp)}℃</p>
