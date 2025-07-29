@@ -47,7 +47,9 @@ export const WeatherCard = ({onCardDelete, weatherCard}) => {
 
             <div className={css.temperature__icon__div}>
                 {/* <IoSunnySharp className={css.temperature__icon} /> */}
+
                 <img src={`http://openweathermap.org/img/wn/${weatherCard.icon}@2x.png`} className={css.temperature__icon} alt={weatherCard.description} />
+
             </div>
 
             <p className={css.temperature}>{Math.round(weatherCard.data.current.temp)}℃</p>
