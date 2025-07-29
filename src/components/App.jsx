@@ -1,9 +1,11 @@
 
-import { WeatherList } from "./Weather/WeatherList/WeatherList";
+import { WeatherList } from './Weather/WeatherList/WeatherList';
+
 import Container from './Container/Container';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Hero from './Hero/Hero';
+
 import { useState } from "react";
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
@@ -15,6 +17,7 @@ export const App = () => {
   const [cityInfo, setCityInfo] = useState(null);
   const [weatherCards, setWeatherCards] = useState([]);
 
+
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
     e.preventDefault();
@@ -23,6 +26,7 @@ export const App = () => {
       const weather = await fetchWeather(coords);
       setCityInfo(coords);
       setWeatherData(weather);
+
       // console.log('cityInfo:', coords);
       // console.log('weatherData:', weather)
 
@@ -76,13 +80,16 @@ export const App = () => {
   }
 
 
+
   return (
     <>
       <Container>
         <Header />
         <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
+
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
         {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} />}
+
 
         <Footer />
 
