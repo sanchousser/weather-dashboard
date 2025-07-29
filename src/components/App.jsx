@@ -13,8 +13,8 @@ import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
 export const App = () => {
 
   const [query, setQuery] = useState('')
-  const [weatherData, setWeatherData] = useState(null);
-  const [cityInfo, setCityInfo] = useState(null);
+  // const [weatherData, setWeatherData] = useState(null);
+  // const [cityInfo, setCityInfo] = useState(null);
   const [weatherCards, setWeatherCards] = useState([]);
 
 
@@ -24,8 +24,8 @@ export const App = () => {
     try {
       const coords = await fetchCoordinates(query);
       const weather = await fetchWeather(coords);
-      setCityInfo(coords);
-      setWeatherData(weather);
+      // setCityInfo(coords);
+      // setWeatherData(weather);
 
       // console.log('cityInfo:', coords);
       // console.log('weatherData:', weather)
