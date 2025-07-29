@@ -5,7 +5,7 @@ import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Hero from './Hero/Hero';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import News from 'News/News';
@@ -14,7 +14,13 @@ export const App = () => {
   const [query, setQuery] = useState('');
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
-  const [weatherCards, setWeatherCards] = useState([]);
+  const [weatherCards, setWeatherCards] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('weatherCards')) ?? []
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
+  }, [weatherCards]);
 
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
