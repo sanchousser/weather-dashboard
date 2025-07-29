@@ -8,30 +8,19 @@ import Hero from './Hero/Hero';
 import { useEffect, useState } from 'react';
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
-import SwiperSection from './Swiper/SwiperSection';
-import fetchImages from 'services/getPixabayContent';
 import News from 'News/News';
 
 export const App = () => {
   const [query, setQuery] = useState('');
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
-  const [weatherCards, setWeatherCards] = useState([]);
-
-  const [images, setImages] = useState([]);
+  const [weatherCards, setWeatherCards] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('weatherCards')) ?? [];
+  });
 
   useEffect(() => {
-    const getImages = async () => {
-      try {
-        const data = await fetchImages();
-        console.log(data);
-        setImages(data.hits);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getImages();
-  }, []);
+    window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
+  }, [weatherCards]);
 
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
@@ -88,6 +77,7 @@ export const App = () => {
         }
       });
 
+      setQuery('');
       // console.log('weatherCards:', weatherCards)
     } catch (error) {
       console.log(error.message);
@@ -113,8 +103,6 @@ export const App = () => {
         )}
 
         <News />
-        <SwiperSection images={images} />
-
         <Footer />
       </Container>
     </>
