@@ -77,6 +77,7 @@ export const App = () => {
         }
       });
 
+      setQuery('');
       // console.log('weatherCards:', weatherCards)
     } catch (error) {
       console.log(error.message);
