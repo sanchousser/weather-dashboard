@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import SwiperSection from './Swiper/SwiperSection';
 import fetchImages from 'services/getPixabayContent';
-import News from 'News/News';
+import News from 'components/News/News';
 
 export const App = () => {
   const [query, setQuery] = useState('');
