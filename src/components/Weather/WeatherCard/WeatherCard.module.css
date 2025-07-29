@@ -5,7 +5,7 @@
     background: #E8E8E8;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: center
 }
 
 .place__text {
@@ -104,15 +104,49 @@
 
 .refresh {
     margin: 0 14px 0 32px;
+    cursor: pointer;
 }
 
 .heart {
     margin-right: 32px;
     color: red;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+
+.heart:hover {
+    transform: scale(1.15);
+}
+
+.heart:active {
+    transform: scale(0.95);
+}
+
+.liked {
+    margin-right: 32px;
+    cursor: pointer;
+    color: red;
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .bin {
     margin-left: 27px;
+    cursor: pointer;
 }
 
 .weather__btns button {
