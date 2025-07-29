@@ -9,6 +9,7 @@ import Hero from './Hero/Hero';
 import { useState } from "react";
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
+import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
 
 export const App = () => {
 
@@ -89,6 +90,7 @@ export const App = () => {
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
         {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} />}
+        < WeatherStats />
 
 
         <Footer />

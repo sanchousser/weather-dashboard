@@ -13,6 +13,8 @@ export const WeatherCard = ({onCardDelete, weatherCard}) => {
 
     const [liked, setLiked] = useState(false);
 
+    console.log(weatherCard)
+
 
     if (!weatherCard.data?.current || !weatherCard.name) {
         return <li>Loading weather data...</li>;
