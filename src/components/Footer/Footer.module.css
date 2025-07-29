@@ -18,6 +18,11 @@
     width: 58px;
     height: 40px;
   }
+
+  @media screen and (min-width: 768px) {
+    width: 90px;
+    height: 62px;
+  }
 }
 
 .footer__thumb {

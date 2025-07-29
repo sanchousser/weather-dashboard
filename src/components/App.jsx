@@ -1,4 +1,3 @@
-
 import { WeatherList } from './Weather/WeatherList/WeatherList';
 
 import Container from './Container/Container';
@@ -6,17 +5,33 @@ import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Hero from './Hero/Hero';
 
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
+import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
+import SwiperSection from './Swiper/SwiperSection';
+import fetchImages from 'services/getPixabayContent';
+import News from 'News/News';
 
 export const App = () => {
-
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('');
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
   const [weatherCards, setWeatherCards] = useState([]);
 
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const getImages = async () => {
+      try {
+        const data = await fetchImages();
+        console.log(data);
+        setImages(data.hits);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getImages();
+  }, []);
 
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
@@ -30,31 +45,36 @@ export const App = () => {
       // console.log('cityInfo:', coords);
       // console.log('weatherData:', weather)
 
-
       const dt = new Date(weather.current.dt * 1000);
       const icon = weather.current.weather?.[0]?.icon;
       const description = weather.current.weather?.[0]?.description;
 
       setWeatherCards(prevCards => {
-        if (window.matchMedia("(width <= 768px)").matches && window.matchMedia("(width > 320px)").matches) {
+        if (
+          window.matchMedia('(width <= 768px)').matches &&
+          window.matchMedia('(width > 320px)').matches
+        ) {
           return [
             {
               ...coords,
               data: { ...weather, dt },
               icon,
-              description
-            }
-          ]
-        } else if (window.matchMedia("(width <= 1200px)").matches && window.matchMedia("(width > 768px)").matches) {
+              description,
+            },
+          ];
+        } else if (
+          window.matchMedia('(width <= 1200px)').matches &&
+          window.matchMedia('(width > 768px)').matches
+        ) {
           return [
             ...prevCards.slice(-1),
             {
               ...coords,
               data: { ...weather, dt },
               icon,
-              description
-            }
-          ]
+              description,
+            },
+          ];
         } else {
           return [
             ...prevCards.slice(-2),
@@ -62,24 +82,21 @@ export const App = () => {
               ...coords,
               data: { ...weather, dt },
               icon,
-              description
-            }
-          ]
+              description,
+            },
+          ];
         }
       });
 
       // console.log('weatherCards:', weatherCards)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-    } catch (error) { console.log(error.message) }
-  }
-
-  const handleCardDelete = (name) => {
-    setWeatherCards(prevCards =>
-      prevCards.filter(card => card.name !== name)
-    );
-  }
-
-
+  const handleCardDelete = name => {
+    setWeatherCards(prevCards => prevCards.filter(card => card.name !== name));
+  };
 
   return (
     <>
@@ -88,11 +105,17 @@ export const App = () => {
         <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
-        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} />}
+        {weatherCards.length !== 0 && (
+          <WeatherList
+            onCardDelete={handleCardDelete}
+            weatherCards={weatherCards}
+          />
+        )}
 
+        <News />
+        <SwiperSection images={images} />
 
         <Footer />
-
       </Container>
     </>
   );

@@ -1,36 +1,30 @@
+import { useState, useEffect } from 'react';
 import css from './News.module.css';
-
-import news from '../imgs/news.png';
+import fetchNews from '../services/getNewsContent';
 
 export default function News() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    fetchNews('pets OR animals OR dogs OR cats OR wildlife  ', 4, 'en')
+      .then(setArticles)
+      .catch(console.error);
+  }, []);
+
   return (
     <section className={css.news__section}>
       <h2 className={css.news__title}>Interacting with our pets</h2>
       <ul className={css.news__list}>
-        <li className={css.news__item}>
-          <img src={news} alt="" className="news__img" />
-          <p className={css.news__text}>
-            Rescue pups pose as ghosts in festive photo shoot
-          </p>
-        </li>
-        <li className={css.news__item}>
-          <img src={news} alt="" className="news__img" />
-          <p className={css.news__text}>
-            Rescue pups pose as ghosts in festive photo shoot
-          </p>
-        </li>
-        <li className={css.news__item}>
-          <img src={news} alt="" className="news__img" />
-          <p className={css.news__text}>
-            Rescue pups pose as ghosts in festive photo shoot
-          </p>
-        </li>
-        <li className={css.news__item}>
-          <img src={news} alt="" className="news__img" />
-          <p className={css.news__text}>
-            Rescue pups pose as ghosts in festive photo shoot
-          </p>
-        </li>
+        {articles.map((article, index) => (
+          <li key={index} className={css.news__item}>
+            <img
+              src={article.urlToImage}
+              alt={article.title}
+              className={css.news__img}
+            />
+            <p className={css.news__text}>{article.title}</p>
+          </li>
+        ))}
       </ul>
       <button className={css.news__btn} type="button">
         See more
