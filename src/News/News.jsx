@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import css from './News.module.css';
-import fetchNews from '../../services/getNewsContent';
+import fetchNews from '../services/getNewsContent';
 
 export default function News() {
   const [articles, setArticles] = useState([]);
