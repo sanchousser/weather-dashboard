@@ -18,7 +18,7 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore }) => {
 
     useEffect(() => {
         window.localStorage.setItem(`liked${weatherCard.name}`, JSON.stringify(liked));
-    }, [liked]);
+    }, [liked, weatherCard.name]);
 
 
 
