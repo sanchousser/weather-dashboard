@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 import css from './WeatherList.module.css'
 
 // export const WeatherList = ({weatherData, cityInfo}) => {
-export const WeatherList = ({onCardDelete, weatherCards}) => {
+export const WeatherList = ({onCardDelete, weatherCards, toggleSeeMore}) => {
 
     // console.log(weatherData);
     // console.log(cityInfo)
@@ -21,7 +21,7 @@ export const WeatherList = ({onCardDelete, weatherCards}) => {
             {weatherCards.map(weatherCard => {
                 // console.log('weather card: ', weatherCard)
                 return (    
-                    <WeatherCard key={nanoid()} weatherCard={weatherCard} onCardDelete={onCardDelete}/>
+                    <WeatherCard key={nanoid()} weatherCard={weatherCard} toggleSeeMore={toggleSeeMore} onCardDelete={onCardDelete}/>
                 )
             })}
         </ul>

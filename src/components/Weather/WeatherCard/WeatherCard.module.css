@@ -5,8 +5,19 @@
     background: #E8E8E8;
     display: flex;
     flex-direction: column;
-    text-align: center
+    text-align: center;
+
+    /* opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease forwards; */
 }
+
+/* @keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} */
 
 .place__text {
     font-weight: 500;
@@ -127,22 +138,9 @@
     margin-right: 32px;
     cursor: pointer;
     color: red;
-    animation: pop 0.3s ease;
+
 }
 
-@keyframes pop {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.4);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
 
 .bin {
     margin-left: 27px;
@@ -211,8 +209,16 @@
 
     .place__text {
         font-size: 14px;
-        margin: 15px 30px 0 30px;
+        margin: 15px 30px 15px 30px;
 
+    }
+
+    .date p {
+        font-size: 14px;
+    }
+
+    .date span {
+        height: 17px;
     }
 
     .time {
@@ -222,5 +228,34 @@
     .temperature__icon {
         width: 120px;
         height: 120px;
+        margin-bottom: 15px;
+    }
+
+    .temperature {
+        font-size: 32px;
+        margin-bottom: 39px;
+    }
+
+    .weather__btns button {
+        width: 99px;
+        height: 28px;
+    }
+
+    .refresh {
+        margin: 0 20px 16px 20px;
+    }
+
+    .heart {
+        margin-right: 38px;
+
+    }
+
+    .bin {
+        margin-left: 37px;
+    }
+
+    .liked {
+        margin-right: 38px;
+
     }
 }

@@ -6,12 +6,22 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { format } from 'date-fns';
 
 import css from './WeatherCard.module.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // export const WeatherCard = ({ data, city }) => {
-export const WeatherCard = ({onCardDelete, weatherCard}) => {
+export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore }) => {
 
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(() => {
+        return JSON.parse(window.localStorage.getItem(`liked${weatherCard.name}`)) ?? false
+    });
+
+  const [seeMore, setSeeMore] = useState(false)
+
+
+    useEffect(() => {
+        window.localStorage.setItem(`liked${weatherCard.name}`, JSON.stringify(liked));
+    }, [liked]);
+
 
 
     if (!weatherCard.data?.current || !weatherCard.name) {
@@ -57,8 +67,8 @@ export const WeatherCard = ({onCardDelete, weatherCard}) => {
             <div className={css.weather__btns}>
                 <MdRefresh className={css.refresh} />
                 {/* <FaRegHeart onClick={onHeartClick} className={css.heart} /> */}
-                {liked ? <FaHeart onClick={onHeartClick} color="red" className={css.liked}/> : <FaRegHeart onClick={onHeartClick} className={css.heart}/>}
-                <button>See more</button>
+                {liked ? <FaHeart onClick={onHeartClick} color="red" className={css.liked} /> : <FaRegHeart onClick={onHeartClick} className={css.heart} />}
+                <button onClick={() => toggleSeeMore(weatherCard.name)}>See more</button>
                 <RiDeleteBin6Line onClick={() => onCardDelete(weatherCard.name)} className={css.bin} />
 
             </div>
