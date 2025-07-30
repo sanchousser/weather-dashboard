@@ -17,6 +17,7 @@ export const App = () => {
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
   const [weatherCards, setWeatherCards] = useState([]);
+  const [seeMore, setSeeMore] = useState(false)
 
 
   const handleChange = e => setQuery(e.target.value);
@@ -37,6 +38,9 @@ export const App = () => {
       const description = weather.current.weather?.[0]?.description;
 
       setWeatherCards(prevCards => {
+
+
+
         if (window.matchMedia("(width <= 768px)").matches && window.matchMedia("(width > 320px)").matches) {
           return [
             {
@@ -70,6 +74,7 @@ export const App = () => {
       });
 
       // console.log('weatherCards:', weatherCards)
+    setSeeMore(false);
 
     } catch (error) { console.log(error.message) }
   }
@@ -78,6 +83,12 @@ export const App = () => {
     setWeatherCards(prevCards =>
       prevCards.filter(card => card.name !== name)
     );
+
+    setSeeMore(false);
+  }
+
+  const toggleSeeMore = () => {
+    setSeeMore(prev => !prev)
   }
 
 
@@ -89,8 +100,8 @@ export const App = () => {
         <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
-        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} />}
-        < WeatherStats />
+        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} />}
+        {seeMore && <WeatherStats weatherCards={weatherCards}/>}
 
 
         <Footer />

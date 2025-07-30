@@ -41,6 +41,11 @@
     margin-bottom: 18px;
 }
 
+.item__mintemp {
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
 .item__icon {
     width: 60px;
     height: 60px;
