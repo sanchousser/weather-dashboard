@@ -8,6 +8,7 @@ import Hero from './Hero/Hero';
 import { useEffect, useState } from 'react';
 
 
+
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
 
@@ -19,13 +20,18 @@ export const App = () => {
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
 
+
    const [weatherCards, setWeatherCards] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('weatherCards')) ?? []
+    return JSON.parse(window.localStorage.getItem('weatherCards')) ?? [];
   });
   const [seeMore, setSeeMore] = useState(false)
   const [cityToSeeMore, setCityToSeeMore] = useState('');
 
 
+
+  useEffect(() => {
+    window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
+  }, [weatherCards]);
 
 
   useEffect(() => {
@@ -54,7 +60,6 @@ export const App = () => {
 
 
         if (window.matchMedia("(width <= 768px)").matches && window.matchMedia("(width > 320px)").matches) {
-
           return [
             {
               ...coords,
@@ -91,11 +96,12 @@ export const App = () => {
 
       setQuery('');
       // console.log('weatherCards:', weatherCards)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-      setSeeMore(false);
 
-    } catch (error) { console.log(error.message) }
-  }
 
   const handleCardDelete = (name) => {
     setWeatherCards(prevCards =>
@@ -126,6 +132,7 @@ export const App = () => {
         <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
+
 
         {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} />}
         {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
