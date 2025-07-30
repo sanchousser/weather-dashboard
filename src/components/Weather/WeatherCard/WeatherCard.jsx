@@ -15,6 +15,9 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore }) => {
         return JSON.parse(window.localStorage.getItem(`liked${weatherCard.name}`)) ?? false
     });
 
+  const [seeMore, setSeeMore] = useState(false)
+
+
     useEffect(() => {
         window.localStorage.setItem(`liked${weatherCard.name}`, JSON.stringify(liked));
     }, [liked]);
@@ -65,7 +68,7 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore }) => {
                 <MdRefresh className={css.refresh} />
                 {/* <FaRegHeart onClick={onHeartClick} className={css.heart} /> */}
                 {liked ? <FaHeart onClick={onHeartClick} color="red" className={css.liked} /> : <FaRegHeart onClick={onHeartClick} className={css.heart} />}
-                <button onClick={toggleSeeMore}>See more</button>
+                <button onClick={() => toggleSeeMore(weatherCard.name)}>See more</button>
                 <RiDeleteBin6Line onClick={() => onCardDelete(weatherCard.name)} className={css.bin} />
 
             </div>

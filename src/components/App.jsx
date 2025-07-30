@@ -18,6 +18,7 @@ export const App = () => {
   // const [cityInfo, setCityInfo] = useState(null);
   const [weatherCards, setWeatherCards] = useState([]);
   const [seeMore, setSeeMore] = useState(false)
+  const [cityToSeeMore, setCityToSeeMore] = useState('');
 
 
   const handleChange = e => setQuery(e.target.value);
@@ -74,7 +75,7 @@ export const App = () => {
       });
 
       // console.log('weatherCards:', weatherCards)
-    setSeeMore(false);
+      setSeeMore(false);
 
     } catch (error) { console.log(error.message) }
   }
@@ -87,9 +88,16 @@ export const App = () => {
     setSeeMore(false);
   }
 
-  const toggleSeeMore = () => {
-    setSeeMore(prev => !prev)
+  const toggleSeeMore = (cityName) => {
+    if (seeMore && cityToSeeMore !== cityName) {
+      setCityToSeeMore(cityName)
+    } else {
+      setSeeMore(prev => !prev)
+      setCityToSeeMore(cityName)
+    }
   }
+
+  const findByName = name => weatherCards.find(card => card.name === name)
 
 
 
@@ -101,7 +109,7 @@ export const App = () => {
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
         {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} />}
-        {seeMore && <WeatherStats weatherCards={weatherCards}/>}
+        {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
 
 
         <Footer />

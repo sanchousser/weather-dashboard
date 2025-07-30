@@ -8,10 +8,8 @@ import visibilityIcon from '../../../imgs/weather/visibility.png'
 
 
 
-export const WeatherStats = ({ weatherCards }) => {
-    const weatherCard = weatherCards[0]
+export const WeatherStats = ({ weatherCard }) => {
 
-    console.log(weatherCard)
     const getVisibilityDescription = (visibility) => {
         if (visibility < 500) return "Very poor"
         else if (visibility < 2000) return "Poor"
