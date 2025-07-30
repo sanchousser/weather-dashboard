@@ -7,16 +7,32 @@ import Hero from './Hero/Hero';
 
 import { useEffect, useState } from 'react';
 
-import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
+
+
+import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
+import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
+
 import News from 'News/News';
+
 
 export const App = () => {
   const [query, setQuery] = useState('');
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
-  const [weatherCards, setWeatherCards] = useState(() => {
+
+
+   const [weatherCards, setWeatherCards] = useState(() => {
     return JSON.parse(window.localStorage.getItem('weatherCards')) ?? [];
   });
+  const [seeMore, setSeeMore] = useState(false)
+  const [cityToSeeMore, setCityToSeeMore] = useState('');
+
+
+
+  useEffect(() => {
+    window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
+  }, [weatherCards]);
+
 
   useEffect(() => {
     window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
@@ -39,10 +55,11 @@ export const App = () => {
       const description = weather.current.weather?.[0]?.description;
 
       setWeatherCards(prevCards => {
-        if (
-          window.matchMedia('(width <= 768px)').matches &&
-          window.matchMedia('(width > 320px)').matches
-        ) {
+
+
+
+
+        if (window.matchMedia("(width <= 768px)").matches && window.matchMedia("(width > 320px)").matches) {
           return [
             {
               ...coords,
@@ -84,9 +101,29 @@ export const App = () => {
     }
   };
 
-  const handleCardDelete = name => {
-    setWeatherCards(prevCards => prevCards.filter(card => card.name !== name));
-  };
+
+
+  const handleCardDelete = (name) => {
+    setWeatherCards(prevCards =>
+      prevCards.filter(card => card.name !== name)
+    );
+
+    setSeeMore(false);
+  }
+
+  const toggleSeeMore = (cityName) => {
+    if (seeMore && cityToSeeMore !== cityName) {
+      setCityToSeeMore(cityName)
+    } else {
+      setSeeMore(prev => !prev)
+      setCityToSeeMore(cityName)
+    }
+  }
+
+  const findByName = name => weatherCards.find(card => card.name === name)
+
+
+
 
   return (
     <>
@@ -95,14 +132,15 @@ export const App = () => {
         <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
-        {weatherCards.length !== 0 && (
-          <WeatherList
-            onCardDelete={handleCardDelete}
-            weatherCards={weatherCards}
-          />
-        )}
+
+
+        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} />}
+        {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
+
+
 
         <News />
+
         <Footer />
       </Container>
     </>
