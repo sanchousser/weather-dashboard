@@ -16,6 +16,7 @@ export const App = () => {
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
 
+
   const [weatherCards, setWeatherCards] = useState(() => {
     return JSON.parse(window.localStorage.getItem('weatherCards')) ?? [];
   });
@@ -36,6 +37,9 @@ export const App = () => {
     try {
       const coords = await fetchCoordinates(query);
       const weather = await fetchWeather(coords);
+      
+      const alreadyExists = weatherCards.some(card => card.name === coords.name);
+      if (alreadyExists) return;
       // setCityInfo(coords);
       // setWeatherData(weather);
 
