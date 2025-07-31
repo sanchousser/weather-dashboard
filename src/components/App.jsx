@@ -10,12 +10,13 @@ import { useEffect, useState } from 'react';
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
+import fetchImages from 'services/getPixabayContent';
+import SwiperSection from './Swiper/SwiperSection';
 
 export const App = () => {
   const [query, setQuery] = useState('');
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
-
 
   const [weatherCards, setWeatherCards] = useState(() => {
     return JSON.parse(window.localStorage.getItem('weatherCards')) ?? [];
@@ -31,14 +32,31 @@ export const App = () => {
     window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
   }, [weatherCards]);
 
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const getImages = async () => {
+      try {
+        const data = await fetchImages();
+        console.log(data);
+        setImages(data.hits);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getImages();
+  }, []);
+
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
     e.preventDefault();
     try {
       const coords = await fetchCoordinates(query);
       const weather = await fetchWeather(coords);
-      
-      const alreadyExists = weatherCards.some(card => card.name === coords.name);
+
+      const alreadyExists = weatherCards.some(
+        card => card.name === coords.name
+      );
       if (alreadyExists) return;
       // setCityInfo(coords);
       // setWeatherData(weather);
@@ -134,6 +152,7 @@ export const App = () => {
         )}
 
         <News />
+        <SwiperSection images={images} />
       </Container>
 
       <Footer />
