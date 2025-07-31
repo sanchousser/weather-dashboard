@@ -31,7 +31,6 @@ export const App = () => {
       try {
         const data = await fetchImages();
         console.log(data);
-        setImages(data.hits);
       } catch (error) {
         console.log(error);
       }
