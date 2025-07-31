@@ -5,8 +5,6 @@
   padding-left: 50px;
   padding-right: 50px;
 
-  outline: 1px solid red;
-
   @media screen and (min-width: 768px) {
     width: 768px;
 
