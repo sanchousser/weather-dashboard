@@ -4,13 +4,12 @@ import Container from './Container/Container';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Hero from './Hero/Hero';
+import News from './News/News';
 
 import { useEffect, useState } from 'react';
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
-
-import News from 'News/News';
 
 export const App = () => {
   const [query, setQuery] = useState('');
