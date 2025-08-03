@@ -6,12 +6,18 @@ import Header from './Header/Header';
 import Hero from './Hero/Hero';
 import News from './News/News';
 
-import { useEffect, useState } from 'react';
+
+import { useEffect, useState } from "react";
+
 
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
+
+import WeatherChart from './Weather/WeatherChart/WeatherChart';
+
 import fetchImages from 'services/getPixabayContent';
 import SwiperSection from './Swiper/SwiperSection';
+
 
 export const App = () => {
   const [query, setQuery] = useState('');
@@ -23,6 +29,14 @@ export const App = () => {
   });
   const [seeMore, setSeeMore] = useState(false);
   const [cityToSeeMore, setCityToSeeMore] = useState('');
+
+
+  const [chartData, setChartData] = useState({
+    timesArr: [],
+    tempsArr: []
+  });
+  const [cityForChart, setCityForChart] = useState('');
+  const [hourlyForecast, setHourlyForecast] = useState(false)
 
   useEffect(() => {
     window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
@@ -46,6 +60,7 @@ export const App = () => {
     };
     getImages();
   }, []);
+
 
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
@@ -109,16 +124,22 @@ export const App = () => {
 
       setQuery('');
       // console.log('weatherCards:', weatherCards)
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+
+      setSeeMore(false);
+      setHourlyForecast(false)
+
+    } catch (error) { console.log(error.message) }
+  }
+
 
   const handleCardDelete = name => {
     setWeatherCards(prevCards => prevCards.filter(card => card.name !== name));
 
     setSeeMore(false);
-  };
+
+    setHourlyForecast(false);
+  }
+
 
   const toggleSeeMore = cityName => {
     if (seeMore && cityToSeeMore !== cityName) {
@@ -127,7 +148,52 @@ export const App = () => {
       setSeeMore(prev => !prev);
       setCityToSeeMore(cityName);
     }
+
+  }
+
+  const findByName = name => weatherCards.find(card => card.name === name)
+
+  const renderHourlyData = (cityName) => {
+
+    const selectedCard = weatherCards.find(card => card.name === cityName);
+    if (!selectedCard || !selectedCard.data?.hourly) return;
+
+    setCityForChart(cityName);
+
+
+    const timesArr = [];
+    const tempsArr = [];
+
+
+    selectedCard.data.hourly.forEach(hourlyData => {
+      const date = new Date(hourlyData.dt * 1000);
+      const hourStr = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        hour12: true,
+      }).toLowerCase();
+      const hourTemp = hourlyData.temp;
+
+      timesArr.push(hourStr);
+      tempsArr.push(hourTemp);
+    });
+
+    setChartData({
+      timesArr: timesArr.slice(0, 20),
+      tempsArr: tempsArr.slice(0, 20),
+    });
+    console.log(chartData)
   };
+
+  const toggleHourlyForecast = (cityName) => {
+
+    if (hourlyForecast && cityForChart !== cityName) {
+      setCityForChart(cityName);
+      renderHourlyData(cityName);
+    } else {
+      setHourlyForecast(prev => !prev)
+      renderHourlyData(cityName);
+    }
+  }
 
   const findByName = name => weatherCards.find(card => card.name === name);
 
@@ -140,22 +206,17 @@ export const App = () => {
       <Container>
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
 
-        {weatherCards.length !== 0 && (
-          <WeatherList
-            onCardDelete={handleCardDelete}
-            weatherCards={weatherCards}
-            toggleSeeMore={toggleSeeMore}
-          />
-        )}
-        {seeMore && cityToSeeMore && (
-          <WeatherStats weatherCard={findByName(cityToSeeMore)} />
-        )}
+        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
+        {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
+        {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
 
+        
+        
         <News />
         <SwiperSection images={images} />
-      </Container>
 
-      <Footer />
+        <Footer />
+
     </>
   );
 };

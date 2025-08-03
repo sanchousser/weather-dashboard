@@ -1,0 +1,39 @@
+.chart__wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.chart__section {
+    background-color: #eee;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 35px;
+    width: 293px;
+    height: 370px;
+    box-sizing: border-box;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+@media screen and (min-width: 768px) {
+    .chart__section {
+        width: 634px;
+        height: 400px;
+        margin-bottom: 50px;
+
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .chart__section {
+        width: 1140px;
+        height: 554px;
+        margin-bottom: 80px;
+    }
+
+}
