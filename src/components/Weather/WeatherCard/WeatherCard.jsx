@@ -9,7 +9,7 @@ import css from './WeatherCard.module.css'
 import { useEffect, useState } from "react";
 
 // export const WeatherCard = ({ data, city }) => {
-export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore }) => {
+export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore, toggleHourlyForecast}) => {
 
     const [liked, setLiked] = useState(() => {
         return JSON.parse(window.localStorage.getItem(`liked${weatherCard.name}`)) ?? false
@@ -44,7 +44,7 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore }) => {
             </div>
             <p className={css.time}>{format(weatherCard.data.dt, 'HH:mm')}</p>
             <div className={css.forecast__btns}>
-                <button>Hourly forecast</button>
+                <button onClick={() => toggleHourlyForecast(weatherCard.name)}>Hourly forecast</button>
                 <button>Weekly forecast</button>
             </div>
             <div className={css.date}>
