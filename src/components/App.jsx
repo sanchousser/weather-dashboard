@@ -151,7 +151,6 @@ export const App = () => {
 
   }
 
-  const findByName = name => weatherCards.find(card => card.name === name)
 
   const renderHourlyData = (cityName) => {
 
