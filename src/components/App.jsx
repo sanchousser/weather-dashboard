@@ -42,10 +42,6 @@ export const App = () => {
     window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
   }, [weatherCards]);
 
-  useEffect(() => {
-    window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
-  }, [weatherCards]);
-
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -197,25 +193,21 @@ export const App = () => {
   const findByName = name => weatherCards.find(card => card.name === name);
 
   return (
-    <>
-      <Container>
-        <Header />
-      </Container>
-      <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
-      <Container>
-        {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
-
-        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
-        {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
-        {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
-
-        
-        
-        <News />
-        <SwiperSection images={images} />
-
-        <Footer />
-
-    </>
-  );
-};
+  <>
+    <Container>
+      <Header />
+    </Container>
+    <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
+    <Container>
+      {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
+      {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
+      {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
+      <News />
+      {/* <SwiperSection images={images} /> */}
+    </Container>
+    <Container>
+      <Footer />
+    </Container>
+  </>
+);
+      }
