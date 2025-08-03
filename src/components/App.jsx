@@ -203,7 +203,7 @@ export const App = () => {
       {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
       {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
       <News />
-      {/* <SwiperSection images={images} /> */}
+      <SwiperSection images={images} />
     </Container>
     <Container>
       <Footer />
