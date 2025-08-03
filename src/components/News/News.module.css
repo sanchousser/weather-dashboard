@@ -28,6 +28,13 @@
   gap: 20px;
 }
 
+.news__img {
+  width: 270px;
+  height: 208px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 .news_text {
   font-size: 16px;
   font-weight: 500;
