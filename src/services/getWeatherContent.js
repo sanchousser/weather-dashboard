@@ -1,6 +1,6 @@
 const BASE_URL = `https://api.openweathermap.org`;
 
-const API_KEY = '40207e285e43c5b8e49ba7f2599cdd4b';
+const API_KEY = '817462e9ebe481f73950092aafc8462e';
 
 
 export const fetchCoordinates = async city => {

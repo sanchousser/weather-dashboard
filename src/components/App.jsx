@@ -14,6 +14,7 @@ import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
 
 import WeatherChart from './Weather/WeatherChart/WeatherChart';
+import { WeatherWeekly } from './Weather/WeatherWeekly/WeatherWeekly';
 
 import fetchImages from 'services/getPixabayContent';
 import SwiperSection from './Swiper/SwiperSection';
@@ -38,6 +39,10 @@ export const App = () => {
   const [cityForChart, setCityForChart] = useState('');
   const [hourlyForecast, setHourlyForecast] = useState(false)
 
+
+  const [weeklyForecast, setWeeklyForecast] = useState(false);
+  const [cityForForecast, setCityForForecast] = useState('')
+
   useEffect(() => {
     window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
   }, [weatherCards]);
@@ -56,6 +61,7 @@ export const App = () => {
     };
     getImages();
   }, []);
+
 
 
   const handleChange = e => setQuery(e.target.value);
@@ -122,7 +128,9 @@ export const App = () => {
       // console.log('weatherCards:', weatherCards)
 
       setSeeMore(false);
-      setHourlyForecast(false)
+      setHourlyForecast(false);
+      setWeeklyForecast(false);
+
 
     } catch (error) { console.log(error.message) }
   }
@@ -134,6 +142,7 @@ export const App = () => {
     setSeeMore(false);
 
     setHourlyForecast(false);
+    setWeeklyForecast(false);
   }
 
 
@@ -190,6 +199,19 @@ export const App = () => {
     }
   }
 
+
+    const toggleWeeklyForecast = (cityName) => {
+    if (seeMore && cityToSeeMore !== cityName) {
+      setCityForForecast(cityName)
+    } else {
+      setWeeklyForecast(prev => !prev)
+      setCityForForecast(cityName)
+    }
+  }
+
+
+
+
   const findByName = name => weatherCards.find(card => card.name === name);
 
   return (
@@ -202,6 +224,8 @@ export const App = () => {
       {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
       {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
       {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
+      {weeklyForecast && cityForForecast && <WeatherWeekly weatherCard={findByName(cityForForecast)} />}
+      {/* <WeatherWeekly /> */}
       <News />
       <SwiperSection images={images} />
     </Container>
