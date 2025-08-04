@@ -221,7 +221,7 @@ export const App = () => {
     </Container>
     <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
     <Container>
-      {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
+      {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} toggleWeeklyForecast={toggleWeeklyForecast} />}
       {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
       {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
       {weeklyForecast && cityForForecast && <WeatherWeekly weatherCard={findByName(cityForForecast)} />}
