@@ -1,0 +1,174 @@
+.weekly__wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.weekly__section {
+    height: 755px;
+    width: 293px;
+    padding: 18px 25px 35px 25px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    background: #E8E8E8;
+    margin-bottom: 35px;
+
+}
+
+.weekly__list {
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 35px;
+    column-gap: 43px;
+}
+
+.weekly__title {
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.weekly__item {
+    width: 100px;
+    height: 140px;
+    border-radius: 10px;
+    background: #D9D9D9;
+    padding: 10px 0 22px 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.item__date {
+    margin-bottom: 20px;
+    font-size: 10px;
+}
+
+.item__img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 7px;
+}
+
+.item__temp {
+    font-weight: 500;
+    font-size: 10px;
+    margin-bottom: 15px;
+}
+
+.item__descr {
+    font-size: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .weekly__section {
+        width: 634px;
+        height: 526px;
+        padding: 20px 35px 35px 35px;
+        margin-bottom: 50px;
+    }
+
+    .weekly__title {
+        font-size: 12px;
+        margin-bottom: 17px;
+    }
+
+    .weekly__list {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 17px;
+    }
+
+    .weekly__item {
+        width: 564px;
+        height: 40px;
+        align-items: center;
+        flex-direction: row;
+        padding: 0 15px 0 15px;
+        box-sizing: border-box;
+        justify-content: space-between;
+    }
+
+
+    .item__date {
+        font-size: 14px;
+        margin-bottom: 0;
+
+    }
+
+    .weekly__item div {
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        gap: 15px;
+    }
+
+    .item__img {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 0;
+
+    }
+
+    .item__temp {
+        font-size: 14px;
+        margin-bottom: 0;
+
+    }
+
+    .item__descr {
+        font-size: 14px;
+        margin-bottom: 0;
+        text-align: right;
+
+
+    }
+
+
+}
+
+@media screen and (min-width: 1200px) {
+    .weekly__section {
+        width: 1140px;
+        height: 554px;
+        padding: 26px 76px 76px 42px;
+        margin-bottom: 80px;
+    }
+
+    .weekly__title {
+        font-size: 16px;
+    }
+
+    .weekly__list {
+        gap: 10px;
+    }
+
+    .weekly__item {
+        width: 986px;
+        height: 47px;
+        padding: 0 50px 0 50px;
+    }
+
+    .item__date {
+        font-size: 16px;
+
+    }
+
+    .item__img {
+        width: 45px;
+        height: 45px;
+
+    }
+
+    .item__temp {
+        font-size: 16px;
+
+    }
+
+    .item__descr {
+        font-size: 16px;
+        text-align: right;
+    }
+
+}

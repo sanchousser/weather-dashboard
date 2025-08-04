@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
 import WeatherChart from './Weather/WeatherChart/WeatherChart';
+import { WeatherWeekly } from './Weather/WeatherWeekly/WeatherWeekly';
 
 export const App = () => {
 
@@ -27,6 +28,10 @@ export const App = () => {
   });
   const [cityForChart, setCityForChart] = useState('');
   const [hourlyForecast, setHourlyForecast] = useState(false)
+
+  const [weeklyForecast, setWeeklyForecast] = useState(false);
+  const [cityForForecast, setCityForForecast] = useState('')
+
 
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
@@ -83,7 +88,9 @@ export const App = () => {
 
       // console.log('weatherCards:', weatherCards)
       setSeeMore(false);
-      setHourlyForecast(false)
+      setHourlyForecast(false);
+      setWeeklyForecast(false);
+
 
     } catch (error) { console.log(error.message) }
   }
@@ -95,6 +102,7 @@ export const App = () => {
 
     setSeeMore(false);
     setHourlyForecast(false);
+    setWeeklyForecast(false);
   }
 
   const toggleSeeMore = (cityName) => {
@@ -150,6 +158,15 @@ export const App = () => {
     }
   }
 
+    const toggleWeeklyForecast = (cityName) => {
+    if (seeMore && cityToSeeMore !== cityName) {
+      setCityForForecast(cityName)
+    } else {
+      setWeeklyForecast(prev => !prev)
+      setCityForForecast(cityName)
+    }
+  }
+
 
 
 
@@ -160,9 +177,11 @@ export const App = () => {
         <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
 
         {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
-        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
+        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} toggleWeeklyForecast={toggleWeeklyForecast} />}
         {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
         {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
+        {weeklyForecast && cityForForecast && <WeatherWeekly weatherCard={findByName(cityForForecast)} />}
+        {/* <WeatherWeekly /> */}
 
 
         <Footer />
