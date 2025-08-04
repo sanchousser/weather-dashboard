@@ -1,26 +1,36 @@
-
 import { WeatherList } from './Weather/WeatherList/WeatherList';
 
 import Container from './Container/Container';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Hero from './Hero/Hero';
+import News from './News/News';
+
 
 import { useEffect, useState } from "react";
 
-import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent'
+
+import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
+
 import WeatherChart from './Weather/WeatherChart/WeatherChart';
 import { WeatherWeekly } from './Weather/WeatherWeekly/WeatherWeekly';
 
-export const App = () => {
+import fetchImages from 'services/getPixabayContent';
+import SwiperSection from './Swiper/SwiperSection';
 
-  const [query, setQuery] = useState('')
+
+export const App = () => {
+  const [query, setQuery] = useState('');
   // const [weatherData, setWeatherData] = useState(null);
   // const [cityInfo, setCityInfo] = useState(null);
-  const [weatherCards, setWeatherCards] = useState([]);
-  const [seeMore, setSeeMore] = useState(false)
+
+  const [weatherCards, setWeatherCards] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('weatherCards')) ?? [];
+  });
+  const [seeMore, setSeeMore] = useState(false);
   const [cityToSeeMore, setCityToSeeMore] = useState('');
+
 
   const [chartData, setChartData] = useState({
     timesArr: [],
@@ -29,8 +39,29 @@ export const App = () => {
   const [cityForChart, setCityForChart] = useState('');
   const [hourlyForecast, setHourlyForecast] = useState(false)
 
+
   const [weeklyForecast, setWeeklyForecast] = useState(false);
   const [cityForForecast, setCityForForecast] = useState('')
+
+  useEffect(() => {
+    window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
+  }, [weatherCards]);
+
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const getImages = async () => {
+      try {
+        const data = await fetchImages();
+        console.log(data);
+        setImages(data.hits);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getImages();
+  }, []);
+
 
 
   const handleChange = e => setQuery(e.target.value);
@@ -39,40 +70,47 @@ export const App = () => {
     try {
       const coords = await fetchCoordinates(query);
       const weather = await fetchWeather(coords);
+
+      const alreadyExists = weatherCards.some(
+        card => card.name === coords.name
+      );
+      if (alreadyExists) return;
       // setCityInfo(coords);
       // setWeatherData(weather);
 
       // console.log('cityInfo:', coords);
       // console.log('weatherData:', weather)
 
-
       const dt = new Date(weather.current.dt * 1000);
       const icon = weather.current.weather?.[0]?.icon;
       const description = weather.current.weather?.[0]?.description;
 
       setWeatherCards(prevCards => {
-
-
-
-        if (window.matchMedia("(width <= 768px)").matches && window.matchMedia("(width > 320px)").matches) {
+        if (
+          window.matchMedia('(width <= 768px)').matches &&
+          window.matchMedia('(width > 320px)').matches
+        ) {
           return [
             {
               ...coords,
               data: { ...weather, dt },
               icon,
-              description
-            }
-          ]
-        } else if (window.matchMedia("(width <= 1200px)").matches && window.matchMedia("(width > 768px)").matches) {
+              description,
+            },
+          ];
+        } else if (
+          window.matchMedia('(width <= 1200px)').matches &&
+          window.matchMedia('(width > 768px)').matches
+        ) {
           return [
             ...prevCards.slice(-1),
             {
               ...coords,
               data: { ...weather, dt },
               icon,
-              description
-            }
-          ]
+              description,
+            },
+          ];
         } else {
           return [
             ...prevCards.slice(-2),
@@ -80,13 +118,15 @@ export const App = () => {
               ...coords,
               data: { ...weather, dt },
               icon,
-              description
-            }
-          ]
+              description,
+            },
+          ];
         }
       });
 
+      setQuery('');
       // console.log('weatherCards:', weatherCards)
+
       setSeeMore(false);
       setHourlyForecast(false);
       setWeeklyForecast(false);
@@ -95,26 +135,27 @@ export const App = () => {
     } catch (error) { console.log(error.message) }
   }
 
-  const handleCardDelete = (name) => {
-    setWeatherCards(prevCards =>
-      prevCards.filter(card => card.name !== name)
-    );
+
+  const handleCardDelete = name => {
+    setWeatherCards(prevCards => prevCards.filter(card => card.name !== name));
 
     setSeeMore(false);
+
     setHourlyForecast(false);
     setWeeklyForecast(false);
   }
 
-  const toggleSeeMore = (cityName) => {
+
+  const toggleSeeMore = cityName => {
     if (seeMore && cityToSeeMore !== cityName) {
-      setCityToSeeMore(cityName)
+      setCityToSeeMore(cityName);
     } else {
-      setSeeMore(prev => !prev)
-      setCityToSeeMore(cityName)
+      setSeeMore(prev => !prev);
+      setCityToSeeMore(cityName);
     }
+
   }
 
-  const findByName = name => weatherCards.find(card => card.name === name)
 
   const renderHourlyData = (cityName) => {
 
@@ -158,6 +199,7 @@ export const App = () => {
     }
   }
 
+
     const toggleWeeklyForecast = (cityName) => {
     if (seeMore && cityToSeeMore !== cityName) {
       setCityForForecast(cityName)
@@ -170,23 +212,26 @@ export const App = () => {
 
 
 
+  const findByName = name => weatherCards.find(card => card.name === name);
+
   return (
-    <>
-      <Container>
-        <Header />
-        <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
-
-        {/* {weatherData && cityInfo && <WeatherList weatherData={weatherData} cityInfo={cityInfo} />} */}
-        {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} toggleWeeklyForecast={toggleWeeklyForecast} />}
-        {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
-        {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
-        {weeklyForecast && cityForForecast && <WeatherWeekly weatherCard={findByName(cityForForecast)} />}
-        {/* <WeatherWeekly /> */}
-
-
-        <Footer />
-
-      </Container>
-    </>
-  );
-};
+  <>
+    <Container>
+      <Header />
+    </Container>
+    <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
+    <Container>
+      {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} />}
+      {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
+      {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
+      {weeklyForecast && cityForForecast && <WeatherWeekly weatherCard={findByName(cityForForecast)} />}
+      {/* <WeatherWeekly /> */}
+      <News />
+      <SwiperSection images={images} />
+    </Container>
+    <Container>
+      <Footer />
+    </Container>
+  </>
+);
+      }
