@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from 'swiper/modules';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css';
-
 import css from './SwiperSection.module.css';
 
 export default function SwiperSection({ images }) {

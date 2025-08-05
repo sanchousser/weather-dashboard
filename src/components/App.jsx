@@ -229,9 +229,9 @@ export const App = () => {
       <News />
       <SwiperSection images={images} />
     </Container>
-    <Container>
+    {/* <Container> */}
       <Footer />
-    </Container>
+    {/* </Container> */}
   </>
 );
       }
