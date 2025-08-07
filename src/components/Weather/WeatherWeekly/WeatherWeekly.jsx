@@ -1,6 +1,6 @@
 import css from './WeatherWeekly.module.css'
 
-import icon from '../../../imgs/weather/humidity.png'
+
 
 export const WeatherWeekly = ({ weatherCard }) => {
 
