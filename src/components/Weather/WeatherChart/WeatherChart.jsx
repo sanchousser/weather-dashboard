@@ -32,6 +32,7 @@ ChartJS.register(
 
 
 export default function WeatherChart({ hourlyTime, hourlyTemp }) {
+    console.log(hourlyTemp, hourlyTime)
 
     const [maxTick, setMaxTick] = useState(35);
     const [minTick, setMinTick] = useState(5);

@@ -21,7 +21,7 @@ export const WeatherList = ({onCardDelete, weatherCards, toggleSeeMore, toggleHo
             {weatherCards.map(weatherCard => {
                 // console.log('weather card: ', weatherCard)
                 return (    
-                    <WeatherCard key={nanoid()} weatherCard={weatherCard} toggleSeeMore={toggleSeeMore} onCardDelete={onCardDelete} toggleHourlyForecast={toggleHourlyForecast} toggleWeeklyForecast={toggleWeeklyForecast} />
+                    <WeatherCard key={weatherCard.data.id} weatherCard={weatherCard} toggleSeeMore={toggleSeeMore} onCardDelete={onCardDelete} toggleHourlyForecast={toggleHourlyForecast} toggleWeeklyForecast={toggleWeeklyForecast} />
                 )
             })}
         </ul>

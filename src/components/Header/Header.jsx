@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className={css.header}>
       <div className={css.header__box}>
-        <img className={css.logo} src={logo} alt="logo" />
+        <a href='/'><img className={css.logo} src={logo} alt="logo" /></a>
 
         <ul className={css.header__list}>
           <li className={css.header__item}>
