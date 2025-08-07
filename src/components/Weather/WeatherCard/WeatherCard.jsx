@@ -13,7 +13,7 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore, toggleHo
 
     console.log(weatherCard)
 
-    console.log(weatherCard.data.daily)
+    // console.log(weatherCard.data.daily)
 
     const [liked, setLiked] = useState(() => {
         return JSON.parse(window.localStorage.getItem(`liked${weatherCard.name}`)) ?? false
@@ -26,7 +26,7 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore, toggleHo
 
 
 
-    if (!weatherCard.data?.current || !weatherCard.name) {
+    if (!weatherCard.data || !weatherCard.name) {
         return <li>Loading weather data...</li>;
     }
 
@@ -64,7 +64,7 @@ export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore, toggleHo
 
             </div>
 
-            <p className={css.temperature}>{Math.round(weatherCard.data.current.temp)}℃</p>
+            <p className={css.temperature}>{Math.round(weatherCard.data.main.temp)}℃</p>
 
             <div className={css.weather__btns}>
                 <MdRefresh className={css.refresh} />
