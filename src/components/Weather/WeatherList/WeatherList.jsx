@@ -1,5 +1,5 @@
 import { WeatherCard } from "components/Weather/WeatherCard/WeatherCard"
-import { nanoid } from 'nanoid'
+
 
 import css from './WeatherList.module.css'
 
