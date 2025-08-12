@@ -10,7 +10,6 @@ export default function Header() {
         <a href="/">
           <img className={css.logo} src={logo} alt="logo" />
         </a>
-
         <ul className={css.header__list}>
           <li className={css.header__item}>
             <a href="fg" className={css.header__link}>
