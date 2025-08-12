@@ -8,7 +8,12 @@ import News from './News/News';
 
 import { useEffect, useState } from 'react';
 
-import { fetchCoordinates, fetchWeather } from '../services/getWeatherContent';
+import {
+  fetchCoordinates,
+  fetchWeather,
+  fetchHourly,
+  fetchWeekly,
+} from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
 
 import WeatherChart from './Weather/WeatherChart/WeatherChart';
@@ -16,7 +21,6 @@ import { WeatherWeekly } from './Weather/WeatherWeekly/WeatherWeekly';
 
 import fetchImages from 'services/getPixabayContent';
 import SwiperSection from './Swiper/SwiperSection';
-import SignUpModal from './SignUpModal/SignUpModal';
 
 export const App = () => {
   const [query, setQuery] = useState('');
@@ -64,6 +68,12 @@ export const App = () => {
     try {
       const coords = await fetchCoordinates(query);
       const weather = await fetchWeather(coords);
+      const hourly = await fetchHourly(coords);
+      const daily = await fetchWeekly(coords);
+
+      // console.log(hourly)
+
+      // console.log(weather)
 
       const alreadyExists = weatherCards.some(
         card => card.name === coords.name
@@ -75,9 +85,9 @@ export const App = () => {
       // console.log('cityInfo:', coords);
       // console.log('weatherData:', weather)
 
-      const dt = new Date(weather.current.dt * 1000);
-      const icon = weather.current.weather?.[0]?.icon;
-      const description = weather.current.weather?.[0]?.description;
+      const dt = new Date(weather.dt * 1000);
+      const icon = weather.weather?.[0]?.icon;
+      const description = weather.weather?.[0]?.description;
 
       setWeatherCards(prevCards => {
         if (
@@ -87,7 +97,7 @@ export const App = () => {
           return [
             {
               ...coords,
-              data: { ...weather, dt },
+              data: { ...weather, dt, hourly: hourly, daily: daily },
               icon,
               description,
             },
@@ -100,7 +110,7 @@ export const App = () => {
             ...prevCards.slice(-1),
             {
               ...coords,
-              data: { ...weather, dt },
+              data: { ...weather, dt, hourly: hourly, daily: daily },
               icon,
               description,
             },
@@ -110,7 +120,7 @@ export const App = () => {
             ...prevCards.slice(-2),
             {
               ...coords,
-              data: { ...weather, dt },
+              data: { ...weather, dt, hourly: hourly, daily: daily },
               icon,
               description,
             },
@@ -156,7 +166,7 @@ export const App = () => {
     const timesArr = [];
     const tempsArr = [];
 
-    selectedCard.data.hourly.forEach(hourlyData => {
+    selectedCard.data.hourly.list.forEach(hourlyData => {
       const date = new Date(hourlyData.dt * 1000);
       const hourStr = date
         .toLocaleTimeString('en-US', {
@@ -164,15 +174,15 @@ export const App = () => {
           hour12: true,
         })
         .toLowerCase();
-      const hourTemp = hourlyData.temp;
+      const hourTemp = Math.round(hourlyData.main.temp);
 
       timesArr.push(hourStr);
       tempsArr.push(hourTemp);
     });
 
     setChartData({
-      timesArr: timesArr.slice(0, 20),
-      tempsArr: tempsArr.slice(0, 20),
+      timesArr: timesArr.slice(0, 20).reverse(),
+      tempsArr: tempsArr.slice(0, 20).reverse(),
     });
     console.log(chartData);
   };
@@ -230,7 +240,9 @@ export const App = () => {
         <News />
         <SwiperSection images={images} />
       </Container>
+      {/* <Container> */}
       <Footer />
+      {/* </Container> */}
     </>
   );
 };
