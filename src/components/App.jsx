@@ -231,7 +231,6 @@ export const App = () => {
         <SwiperSection images={images} />
       </Container>
       <Footer />
-      <SignUpModal />
     </>
   );
 };

@@ -56,4 +56,60 @@
   background: #ffb36c;
   padding: 8px 16px;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu__signUp__btn:hover {
+  background-color: #ffd1a5;
+}
+
+.modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal__content {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(1);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
