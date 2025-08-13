@@ -16,16 +16,18 @@
 
 .news__list {
   display: flex;
-  justify-content: space-between;
-
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   margin-bottom: 40px;
 }
 
 .news__item {
   display: flex;
   flex-direction: column;
-  width: 270px;
+  max-width: 270px;
   gap: 20px;
+  flex: calc(25% - 20px);
 }
 
 .news__img {
