@@ -3,13 +3,30 @@ import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import css from './MobileMenu.module.css';
+import SignUpModal from 'components/SignUpModal/SignUpModal';
 
-export default function MobileMenu() {
+export default function MobileMenu({ isLoggedIn, username, onSignUp }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleMenuClick() {
     setIsVisible(prev => !prev);
   }
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    setIsVisible(false);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const handleSignUp = userUsername => {
+    onSignUp(userUsername);
+  };
 
   return (
     <>
@@ -43,9 +60,28 @@ export default function MobileMenu() {
 
           <div className={css.menu__signUp}>
             <IoPersonCircleOutline className={css.menu__signUp__icon} />
-            <button type="button" className={css.menu__signUp__btn}>
-              Sign Up
-            </button>
+            {isLoggedIn ? (
+              <span className={css.username__mobile}>{username}</span>
+            ) : (
+              <button
+                type="button"
+                className={css.menu__signUp__btn}
+                onClick={openModal}
+              >
+                Sign Up
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {isModalOpen && (
+        <div className={css.modal__backdrop} onClick={closeModal}>
+          <div
+            className={css.modal__content}
+            onClick={e => e.stopPropagation()}
+          >
+            <SignUpModal onClose={closeModal} onSignUp={handleSignUp} />
           </div>
         </div>
       )}

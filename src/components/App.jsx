@@ -6,9 +6,7 @@ import Header from './Header/Header';
 import Hero from './Hero/Hero';
 import News from './News/News';
 
-
-import { useEffect, useState } from "react";
-
+import { useEffect, useState } from 'react';
 
 import { fetchCoordinates, fetchWeather, fetchHourly, fetchWeekly } from '../services/getWeatherContent';
 import { WeatherStats } from './Weather/WeatherStats/WeatherStats';
@@ -18,7 +16,7 @@ import { WeatherWeekly } from './Weather/WeatherWeekly/WeatherWeekly';
 
 import fetchImages from 'services/getPixabayContent';
 import SwiperSection from './Swiper/SwiperSection';
-
+import SignUpModal from './SignUpModal/SignUpModal';
 
 export const App = () => {
   const [query, setQuery] = useState('');
@@ -31,17 +29,15 @@ export const App = () => {
   const [seeMore, setSeeMore] = useState(false);
   const [cityToSeeMore, setCityToSeeMore] = useState('');
 
-
   const [chartData, setChartData] = useState({
     timesArr: [],
-    tempsArr: []
+    tempsArr: [],
   });
   const [cityForChart, setCityForChart] = useState('');
-  const [hourlyForecast, setHourlyForecast] = useState(false)
-
+  const [hourlyForecast, setHourlyForecast] = useState(false);
 
   const [weeklyForecast, setWeeklyForecast] = useState(false);
-  const [cityForForecast, setCityForForecast] = useState('')
+  const [cityForForecast, setCityForForecast] = useState('');
 
   useEffect(() => {
     window.localStorage.setItem('weatherCards', JSON.stringify(weatherCards));
@@ -61,8 +57,6 @@ export const App = () => {
     };
     getImages();
   }, []);
-
-
 
   const handleChange = e => setQuery(e.target.value);
   const handleSubmit = async e => {
@@ -137,11 +131,10 @@ export const App = () => {
       setSeeMore(false);
       setHourlyForecast(false);
       setWeeklyForecast(false);
-
-
-    } catch (error) { console.log(error.message) }
-  }
-
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const handleCardDelete = name => {
     setWeatherCards(prevCards => prevCards.filter(card => card.name !== name));
@@ -150,8 +143,7 @@ export const App = () => {
 
     setHourlyForecast(false);
     setWeeklyForecast(false);
-  }
-
+  };
 
   const toggleSeeMore = cityName => {
     if (seeMore && cityToSeeMore !== cityName) {
@@ -160,20 +152,17 @@ export const App = () => {
       setSeeMore(prev => !prev);
       setCityToSeeMore(cityName);
     }
+  };
 
-  }
-
-
-  const renderHourlyData = (cityName) => {
-
+  const renderHourlyData = cityName => {
     const selectedCard = weatherCards.find(card => card.name === cityName);
     if (!selectedCard || !selectedCard.data?.hourly) return;
 
     setCityForChart(cityName);
 
-
     const timesArr = [];
     const tempsArr = [];
+
 
 
     selectedCard.data.hourly.list.forEach(hourlyData => {
@@ -182,7 +171,7 @@ export const App = () => {
         hour: 'numeric',
         hour12: true,
       }).toLowerCase();
-      const hourTemp = Math.round(hourlyData.main.temp);
+      const hourTemp = Math.round(hourlyData.main.te
 
       timesArr.push(hourStr);
       tempsArr.push(hourTemp);
@@ -192,53 +181,63 @@ export const App = () => {
       timesArr: timesArr.slice(0, 20).reverse(),
       tempsArr: tempsArr.slice(0, 20).reverse(),
     });
-    console.log(chartData)
+    console.log(chartData);
   };
 
-  const toggleHourlyForecast = (cityName) => {
-
+  const toggleHourlyForecast = cityName => {
     if (hourlyForecast && cityForChart !== cityName) {
       setCityForChart(cityName);
       renderHourlyData(cityName);
     } else {
-      setHourlyForecast(prev => !prev)
+      setHourlyForecast(prev => !prev);
       renderHourlyData(cityName);
     }
-  }
+  };
 
-
-    const toggleWeeklyForecast = (cityName) => {
+  const toggleWeeklyForecast = cityName => {
     if (seeMore && cityToSeeMore !== cityName) {
-      setCityForForecast(cityName)
+      setCityForForecast(cityName);
     } else {
-      setWeeklyForecast(prev => !prev)
-      setCityForForecast(cityName)
+      setWeeklyForecast(prev => !prev);
+      setCityForForecast(cityName);
     }
-  }
-
-
-
+  };
 
   const findByName = name => weatherCards.find(card => card.name === name);
 
   return (
-  <>
-    <Container>
-      <Header />
-    </Container>
-    <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
-    <Container>
-      {weatherCards.length !== 0 && <WeatherList onCardDelete={handleCardDelete} weatherCards={weatherCards} toggleSeeMore={toggleSeeMore} toggleHourlyForecast={toggleHourlyForecast} toggleWeeklyForecast={toggleWeeklyForecast} />}
-      {seeMore && cityToSeeMore && <WeatherStats weatherCard={findByName(cityToSeeMore)} />}
-      {cityForChart && hourlyForecast && <WeatherChart hourlyTime={chartData.timesArr} hourlyTemp={chartData.tempsArr} />}
-      {weeklyForecast && cityForForecast && <WeatherWeekly weatherCard={findByName(cityForForecast)} />}
-      {/* <WeatherWeekly /> */}
-      <News />
-      <SwiperSection images={images} />
-    </Container>
-    {/* <Container> */}
+    <>
+      <Container>
+        <Header />
+      </Container>
+      <Hero query={query} onChange={handleChange} onSubmit={handleSubmit} />
+      <Container>
+        {weatherCards.length !== 0 && (
+          <WeatherList
+            onCardDelete={handleCardDelete}
+            weatherCards={weatherCards}
+            toggleSeeMore={toggleSeeMore}
+            toggleHourlyForecast={toggleHourlyForecast}
+            toggleWeeklyForecast={toggleWeeklyForecast}
+          />
+        )}
+        {seeMore && cityToSeeMore && (
+          <WeatherStats weatherCard={findByName(cityToSeeMore)} />
+        )}
+        {cityForChart && hourlyForecast && (
+          <WeatherChart
+            hourlyTime={chartData.timesArr}
+            hourlyTemp={chartData.tempsArr}
+          />
+        )}
+        {weeklyForecast && cityForForecast && (
+          <WeatherWeekly weatherCard={findByName(cityForForecast)} />
+        )}
+        {/* <WeatherWeekly /> */}
+        <News />
+        <SwiperSection images={images} />
+      </Container>
       <Footer />
-    {/* </Container> */}
-  </>
-);
-      }
+    </>
+  );
+};
