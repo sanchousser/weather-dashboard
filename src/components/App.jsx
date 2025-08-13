@@ -16,7 +16,7 @@ import { WeatherWeekly } from './Weather/WeatherWeekly/WeatherWeekly';
 
 import fetchImages from 'services/getPixabayContent';
 import SwiperSection from './Swiper/SwiperSection';
-import SignUpModal from './SignUpModal/SignUpModal';
+// import SignUpModal from './SignUpModal/SignUpModal';
 
 export const App = () => {
   const [query, setQuery] = useState('');
