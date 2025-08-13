@@ -171,7 +171,7 @@ export const App = () => {
         hour: 'numeric',
         hour12: true,
       }).toLowerCase();
-      const hourTemp = Math.round(hourlyData.main.te
+      const hourTemp = Math.round(hourlyData.main.temp);
 
       timesArr.push(hourStr);
       tempsArr.push(hourTemp);
