@@ -78,6 +78,7 @@ export default function Header() {
             username={username}
             onSignUp={handleSignUp}
           />
+
         </div>
       </header>
 
