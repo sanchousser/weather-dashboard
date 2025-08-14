@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 // export const WeatherCard = ({ data, city }) => {
 export const WeatherCard = ({ onCardDelete, weatherCard, toggleSeeMore, toggleHourlyForecast, toggleWeeklyForecast}) => {
 
-    console.log(weatherCard)
+    // console.log(weatherCard)
 
     // console.log(weatherCard.data.daily)
 

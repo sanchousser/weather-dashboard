@@ -195,8 +195,9 @@ export const App = () => {
   };
 
   const toggleWeeklyForecast = cityName => {
-    if (seeMore && cityToSeeMore !== cityName) {
+    if (weeklyForecast && cityForForecast !== cityName) {
       setCityForForecast(cityName);
+      console.log(cityName)
     } else {
       setWeeklyForecast(prev => !prev);
       setCityForForecast(cityName);
